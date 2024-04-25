@@ -145,7 +145,9 @@ class _mainScreenState extends State<mainScreen> {
                 );
               }).toList();
             },
+            elevation: 2,
           ),
+          
         ],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
