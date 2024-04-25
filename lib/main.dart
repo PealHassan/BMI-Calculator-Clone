@@ -1,7 +1,7 @@
-import 'package:bmicalculator/dataProvider.dart';
+
 import 'package:bmicalculator/mainScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 void main() async{
   runApp(MyApp());

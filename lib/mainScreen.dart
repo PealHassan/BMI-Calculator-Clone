@@ -1,16 +1,10 @@
-import 'dart:ffi' as ffi;
+
 import 'dart:math';
-import 'dart:ui' as ui;
 import 'dart:ui';
-import 'package:bmicalculator/bmiMeter.dart';
-import 'package:bmicalculator/components.dart';
-import 'package:bmicalculator/dataProvider.dart';
 import 'package:bmicalculator/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 class mainScreen extends StatefulWidget {
   String selectedWeight,selectedHeight,selectedClassification;
   bool adultsOnly;
@@ -141,11 +135,6 @@ class _mainScreenState extends State<mainScreen> {
                   context,
                   MaterialPageRoute(builder: (context) => settings(selectedClassification: classification, selectedWeight: selectedWeight!, selectedHeight: selectedHeight!, adultsOnly: adultsOnly)),
                 );
-              } else if (value == 'Settings') {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => Option2Screen()),
-                // );
               }
             },
             itemBuilder: (BuildContext context) {
@@ -163,16 +152,11 @@ class _mainScreenState extends State<mainScreen> {
           children: [
             Text('BMI Calculator'),
             Row(
-              
               children: [
                 IconButton(
                   onPressed: refresh, 
                   icon: Icon(Icons.restart_alt),
                 ),
-                // Container(
-                //   child: Text('hello'),
-                // ),
-                
               ],
             )
           ],
@@ -303,18 +287,25 @@ class _mainScreenState extends State<mainScreen> {
                   child: classification == 'DGE'? Column(
                     children: [
                       categroyView(dgeCat[0], '<=', dgeStan[gender][0], dgeStan[gender][0]),
+                      SizedBox(height: 8,),
                       categroyView(dgeCat[1],"-",dgeStan[gender][1],dgeStan[gender][2]),
+                      SizedBox(height: 8,),
                       categroyView(dgeCat[2], "-", dgeStan[gender][3], dgeStan[gender][4]),
+                      SizedBox(height: 8,),
                       categroyView(dgeCat[3], "-", dgeStan[gender][5], dgeStan[gender][6]),
+                      SizedBox(height: 8,),
                       categroyView(dgeCat[4], "-", dgeStan[gender][7], dgeStan[gender][8]),
+                      SizedBox(height: 8,),
                       categroyView(dgeCat[5], ">=", dgeStan[gender][9], dgeStan[gender][9]),
                     ],
                   ):ageController.text.toString() != '' && int.parse(ageController.text.toString()) >= 7 && int.parse(ageController.text.toString()) <= 18?Column(
                     children: [
                       categroyView('Underweight',"<=",whoStan[gender][int.parse(ageController.text.toString())-7][0],whoStan[gender][int.parse(ageController.text.toString())-7][0]),
-                      // SizedBox(height: 20,),
+                      SizedBox(height: 20,),
                       categroyView('Normal',"-",whoStan[gender][int.parse(ageController.text.toString())-7][1],whoStan[gender][int.parse(ageController.text.toString())-7][2]),
-                      categroyView('Overweight',"-",whoStan[gender][int.parse(ageController.text.toString())-7][3],whoStan[gender][int.parse(ageController.text.toString())-7][4]),
+                      SizedBox(height: 20,),
+                      categroyView('Overweight',"-",whoStan[gender][int.parse(ageController.text.toString())-7][3],whoStan[gender][int.parse(ageController.text.toString())-7][4]), 
+                      SizedBox(height: 20,),
                       categroyView('Obese',">=",whoStan[gender][int.parse(ageController.text.toString())-7][5],whoStan[gender][int.parse(ageController.text.toString())-7][5]),
                     ],
                   ):Column(
@@ -336,7 +327,7 @@ class _mainScreenState extends State<mainScreen> {
                 child: Divider(
                   color: Colors.grey,
                   thickness: 1.0,
-                  height: 20.0, // Optional, adds vertical space above and below the divider
+                  height: 20.0, 
                 )
 ,
               ),
@@ -349,16 +340,7 @@ class _mainScreenState extends State<mainScreen> {
                   normalWeightmn == 0?Text("..."):Text(trunck(normalWeightmn) + " - " + trunck(normalWeightmx) + " kg"),
                 ],
               ),),
-              
-              
-              
-
             ],
-            // ),
-            
-            
-            
-          // ],
         ),
       ),
     );
@@ -386,9 +368,7 @@ class _mainScreenState extends State<mainScreen> {
                   visible: category == this.category?true:false,
                   child: Icon(Icons.arrow_right,color: color,
                 )),
-                Text(category,style: TextStyle(color: category == this.category?color:Colors.black,
-                  // fontSize: 15,
-                ),
+                Text(category,style: TextStyle(color: category == this.category?color:Colors.black,),
                   
                 ),
           ],
@@ -458,7 +438,7 @@ class _mainScreenState extends State<mainScreen> {
                         borderRadius: BorderRadius.circular(8),
                         color: Color(0xffe1e2ec),
                       ),
-                      // offset: const Offset(-20, 0),
+                      
                 
                     ),
                     menuItemStyleData: const MenuItemStyleData(
@@ -738,27 +718,26 @@ class drawBmiView extends CustomPainter {
     // Draw the first one-third arc
     canvas.drawArc(
       Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
-      pi, // Start angle (radians), 180 degrees in radians
-      pi / 3, // Sweep angle (radians), 60 degrees in radians
-      false, // Whether the arc should be drawn in the clockwise direction
+      pi, 
+      pi / 3, 
+      false, 
       paint1,
     );
 
-    // Draw the second one-third arc
     canvas.drawArc(
       Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
-      pi + pi / 3, // Start angle (radians), 180 + 60 = 240 degrees in radians
-      pi / 3, // Sweep angle (radians), 60 degrees in radians
-      false, // Whether the arc should be drawn in the clockwise direction
+      pi + pi / 3, 
+      pi / 3, 
+      false, 
       paint2,
     );
 
-    // Draw the third one-third arc
+    
     canvas.drawArc(
       Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
-      pi + 2 * pi / 3, // Start angle (radians), 180 + 2*60 = 300 degrees in radians
-      pi / 3, // Sweep angle (radians), 60 degrees in radians
-      false, // Whether the arc should be drawn in the clockwise direction
+      pi + 2 * pi / 3, 
+      pi / 3, 
+      false,
       paint3,
     );
     drawCenterText(canvas, 'BMI', centerX, centerY-40,Colors.black);
@@ -773,20 +752,12 @@ class drawBmiView extends CustomPainter {
     else if(bmi <= value3) theta = (pi/3) +(pi/3)-(pi / 3) * ((bmi - value2) / (value3 - value2));
     else if(bmi <= value4) theta = (pi/3) - ((pi / 3) * ((bmi - value3) / (value4 - value3)));
     else theta = 0;
- // Adjusted to the upper arc
     final double circleX = centerX + radius * cos(theta);
-    final double circleY = centerY - radius * sin(theta); // Minus sign to move upwards along the arc
+    final double circleY = centerY - radius * sin(theta); 
     final Paint circlePaint = Paint()
       ..color = bmi < value2?Colors.blue:bmi<value3?Colors.green:Colors.red
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(circleX, circleY), 10.0, circlePaint);
-
-
-
-
-    
-    
-    
+    canvas.drawCircle(Offset(circleX, circleY), 10.0, circlePaint);  
   }
   
   void drawCenterText(Canvas canvas, String text, double centerX, double centerY,Color color,[double fontsz = 16]) {
@@ -806,7 +777,6 @@ class drawBmiView extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
     return false;
   }
 }

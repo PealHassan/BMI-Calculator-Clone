@@ -1,9 +1,6 @@
 import 'package:bmicalculator/mainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:provider/provider.dart';
-
-import 'dataProvider.dart';
 
 class settings extends StatefulWidget {
   String selectedClassification, selectedHeight,selectedWeight;
@@ -42,7 +39,7 @@ class _settingsState extends State<settings> {
       ),
       
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
+        
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
