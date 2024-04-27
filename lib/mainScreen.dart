@@ -717,7 +717,7 @@ class drawBmiView extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 8.0;
 
-    // Draw the first one-third arc
+    
     canvas.drawArc(
       Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
       pi, 
@@ -782,7 +782,6 @@ class drawBmiView extends CustomPainter {
     return false;
   }
 }
-
 
 
 
