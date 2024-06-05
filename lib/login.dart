@@ -1,13 +1,19 @@
+import 'package:BmiCalculator/mainScreen.dart';
 import 'package:BmiCalculator/register.dart';
 import 'package:BmiCalculator/register.dart';
 import 'package:BmiCalculator/subPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  bool isLogin = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,34 +42,48 @@ class LoginPage extends StatelessWidget {
               obscureText: true,
             ),
             SizedBox(height: 20),
+            isLogin?CircularProgressIndicator():
             ElevatedButton(
+              
               onPressed: () async {
+                setState(() {
+                  isLogin = true;
+                });
+                print(isLogin);
                 try {
                   UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: _emailController.text,
                     password: _passwordController.text,
                   );
-                  // Handle successful login
+
                   if (userCredential.user != null) {
-    // Handle successful login
+                    User user = userCredential.user!;
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SubscriptionPage(user: userCredential.user!),
-                      ),
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SubscriptionPage(user: user),
+                          ),
                     );
-                    print('Logged in: ${userCredential.user}');
-                  } else {
+                  }
+                  else {
                     // Handle the case where userCredential.user is null
                     print('User is null');
+                    showErrorDialog(context, 'User is null');
                   }
-                  print('Logged in: ${userCredential.user}');
                 } on FirebaseAuthException catch (e) {
                   // Handle login error
                   showErrorDialog(context, e.message ?? 'Failed to login');
                   print('Failed to login: $e');
+                } catch (e) {
+                  // Handle any other errors
+                  showErrorDialog(context, 'An unexpected error occurred');
+                  print('An unexpected error occurred: $e');
                 }
+                setState(() {
+                  isLogin = false;
+                });
               },
+
               child: Text('Login'),
             ),
             TextButton(

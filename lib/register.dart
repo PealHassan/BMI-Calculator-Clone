@@ -2,13 +2,15 @@ import 'package:BmiCalculator/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  _RegisterPageState createState() => _RegisterPageState();
+}
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-
+  bool isReg = false;  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,8 +56,13 @@ class RegisterPage extends StatelessWidget {
               obscureText: true,
             ),
             SizedBox(height: 20),
+            isReg?CircularProgressIndicator():
             ElevatedButton(
+              
               onPressed: () async {
+                setState(() {
+                  isReg = true;
+                });
                 String email = _emailController.text;
                 String phone = _phoneController.text;
                 String password = _passwordController.text;
@@ -112,6 +119,9 @@ class RegisterPage extends StatelessWidget {
                     print('Failed to register: $e');
                   }
                 }
+                setState(() {
+                  isReg = false;
+                });
               },
               child: Text('Register'),
             ),
