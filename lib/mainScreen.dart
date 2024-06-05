@@ -1,7 +1,8 @@
 
 import 'dart:math';
 import 'dart:ui';
-import 'package:bmicalculator/settings.dart';
+import 'package:BmiCalculator/settings.dart';
+import 'package:BmiCalculator/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/rendering.dart';

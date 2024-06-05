@@ -1,4 +1,4 @@
-import 'package:bmicalculator/mainScreen.dart';
+import 'package:BmiCalculator/mainScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
